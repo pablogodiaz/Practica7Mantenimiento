@@ -23,5 +23,50 @@ public class IntegrationTestIT {
         assertTrue(user.register(date,ps,cs,cv));
     }
 
+    @Test
+    void prueba2(){
+        UserRegistration user = new UserRegistration();
+        Date date = Mockito.mock(Date.class);
+        PasswordString ps = Mockito.mock(PasswordString.class);
+        CredentialStore cs = Mockito.mock(CredentialStoreSet.class);
+        CredentialValidator cv = new CredentialValidator(date,ps,cs);
+        Mockito.when(date.validate()).thenReturn(true);
+        Mockito.when(ps.validate()).thenReturn(true);
+        Mockito.when(cs.credentialExists(date,ps)).thenReturn(false);
+        assertTrue(user.register(date,ps,cs,cv));
+    }
+
+    @Test
+    void prueba3(){
+        UserRegistration user = new UserRegistration();
+        Date date = new Date(1,1,2022);
+        PasswordString ps = Mockito.mock(PasswordString.class);
+        CredentialStore cs = Mockito.mock(CredentialStoreSet.class);
+        CredentialValidator cv = new CredentialValidator(date,ps,cs);
+        Mockito.when(ps.validate()).thenReturn(true);
+        Mockito.when(cs.credentialExists(date,ps)).thenReturn(false);
+        assertTrue(user.register(date,ps,cs,cv));
+    }
+
+    @Test
+    void prueba4(){
+        UserRegistration user = new UserRegistration();
+        Date date = new Date(1,1,2022);
+        PasswordString ps = new PasswordString(".12345678");
+        CredentialStore cs = Mockito.mock(CredentialStoreSet.class);
+        CredentialValidator cv = new CredentialValidator(date,ps,cs);
+        Mockito.when(cs.credentialExists(date,ps)).thenReturn(false);
+        assertTrue(user.register(date,ps,cs,cv));
+    }
+
+    @Test
+    void prueba5(){
+        UserRegistration user = new UserRegistration();
+        Date date = new Date(1,1,2022);
+        PasswordString ps = new PasswordString(".12345678");
+        CredentialStore cs = new CredentialStoreSet();
+        CredentialValidator cv = new CredentialValidator(date,ps,cs);
+        assertTrue(user.register(date,ps,cs,cv));
+    }
 
 }
