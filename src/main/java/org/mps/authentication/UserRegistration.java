@@ -8,12 +8,13 @@ public class UserRegistration {
       CredentialStore credentialStore,CredentialValidator cv) {
 
     Boolean registrado = false;
+    if(cv != null){
+      ValidationStatus status = cv.validate();
 
-    ValidationStatus status = cv.validate();
-
-    if (status == ValidationStatus.VALIDATION_OK) {
-      credentialStore.register(birthDate, passwordString);
-      registrado = true;
+      if (status == ValidationStatus.VALIDATION_OK) {
+        credentialStore.register(birthDate, passwordString);
+        registrado = true;
+      }
     }
     return registrado;
   }
