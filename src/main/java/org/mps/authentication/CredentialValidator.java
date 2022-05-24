@@ -26,7 +26,7 @@ public class CredentialValidator {
     }else if(credentialStore == null){
       result = ValidationStatus.CREDENTIAL_INVALID;
     }else if (credentialStore.credentialExists(birthDate, passwordString)) {
-      result = ValidationStatus.EXISTING_CREDENTIAL ;
+      result = ValidationStatus.EXISTING_CREDENTIAL;
     }
     return result ;
   }
